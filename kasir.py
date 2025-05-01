@@ -1,4 +1,4 @@
-import csv
+import csv, os
 
 keranjang = []
 file_name = fr"purchase.csv"
@@ -15,6 +15,7 @@ def tampilkan_menu():
     print("2. Hapus Barang")
     print("3. Lihat Keranjang")
     print("4. Hitung Total & Bayar")
+    print("5. Clear Terminal")
     print("0. Exit")
 
 def save_data():
@@ -155,6 +156,12 @@ def hitung_total():
             # menghapus semua item di dalam list setelah pembayaran berhasil
             break
 
+def clear_terminal():
+    if os.name == "nt":
+        os.system("cls")
+    else:
+        os.system("clear")
+
 def main():
     '''Menjalankan fungsi-fungsi utama dalam program kasir.py'''
     load_data()
@@ -162,12 +169,13 @@ def main():
     while True:
         tampilkan_menu()
         print()
-        fungsi = input_str("Pilih menu (0-4): ")
+        fungsi = input_str("Pilih menu (0-5): ")
         pilihan = {
             "1": tambah_barang,
             "2": hapus_barang,
             "3": lihat_keranjang,
             "4": hitung_total,
+            "5": clear_terminal
         }
         # membuat dictionary untuk fungsi-fungsi utama
         if fungsi in pilihan:
