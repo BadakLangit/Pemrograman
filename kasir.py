@@ -99,18 +99,18 @@ def hapus_barang():
         return
     lihat_keranjang()
     print()
-    nama = input_str("Masukkan nama/nomor: ")
+    nama = input_str("Masukkan nomor/nama: ")
     idx, item = find(nama)
-    if item:
+    if nama.isdigit() and 0 < int(nama) <= len(keranjang):
+        print(f"[{keranjang[int(nama) - 1]["Nama"]} berhasil dihapus]")
+        del keranjang[int(nama) - 1]
+    elif item:
         print(f"[{nama} berhasil dihapus]")
         del keranjang[idx]
         # menghapus item dengan nama yang sama di dalam list
-    elif nama.isdigit() and 0 < int(nama) <= len(keranjang):
-        print(f"[{keranjang[int(nama) - 1]["Nama"]} berhasil dihapus]")
-        del keranjang[int(nama) - 1]
     else:
         print(f"[{nama} tidak ditemukan]")
-        # kembali ke menu awal jika tidak ada item dengan nama yang sesuai
+        # kembali ke menu awal jika tidak ada item dengan nomor/nama yang sesuai
 
 def lihat_keranjang():
     '''Menampilkan daftar belanja dalam bentuk tabel'''
