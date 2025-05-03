@@ -75,7 +75,7 @@ def find(nama):
     for index, item in enumerate(keranjang):
         if item["Nama"].lower() == nama.lower():
             return index, item
-            # mengembalikan seluruh atribut item jika nama cocok
+            # mengembalikan index item jika nama cocok
     return None, None
     # mengembalikan nilai sebagai None jika tidak ada item dengan nama yang sesuai
 
@@ -100,17 +100,17 @@ def hapus_barang():
         return
     lihat_keranjang()
     print()
-    nama = input_str("Masukkan nomor/nama: ")
-    index, item = find(nama)
-    if nama.isdigit() and 0 < int(nama) <= len(keranjang):
-        print(f"[{keranjang[int(nama) - 1]["Nama"]} berhasil dihapus]")
-        del keranjang[int(nama) - 1]
+    target = input_str("Masukkan nomor/nama: ")
+    index, item = find(target)
+    if target.isdigit() and 0 < int(target) <= len(keranjang):
+        print(f"[{keranjang[int(target) - 1]["Nama"]} berhasil dihapus]")
+        del keranjang[int(target) - 1]
     elif item:
-        print(f"[{nama} berhasil dihapus]")
+        print(f"[{target} berhasil dihapus]")
         del keranjang[index]
         # menghapus item dengan nama yang sama di dalam list
     else:
-        print(f"[{nama} tidak ditemukan]")
+        print(f"[{target} tidak ditemukan]")
         # kembali ke menu awal jika tidak ada item dengan nomor/nama yang sesuai
 
 def lihat_keranjang():
