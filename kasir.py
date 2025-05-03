@@ -72,9 +72,9 @@ def input_int(prompt):
 
 def find(nama):
     '''Mencari item dalam list keranjang'''
-    for idx, item in enumerate(keranjang):
+    for index, item in enumerate(keranjang):
         if item["Nama"].lower() == nama.lower():
-            return idx, item
+            return index, item
             # mengembalikan seluruh atribut item jika nama cocok
     return None, None
     # mengembalikan nilai sebagai None jika tidak ada item dengan nama yang sesuai
@@ -82,8 +82,8 @@ def find(nama):
 def tambah_barang():
     '''Menambah item ke dalam list keranjang'''
     nama = input_str("Masukkan item baru: ")
-    idx, _ = find(nama)
-    if idx is not None:
+    index, _ = find(nama)
+    if index is not None:
         print(f"[{nama} sudah ada di dalam keranjang]")
         return
         # kembali ke menu awal jika sudah ada item dengan nama yang sama 
@@ -101,13 +101,13 @@ def hapus_barang():
     lihat_keranjang()
     print()
     nama = input_str("Masukkan nomor/nama: ")
-    idx, item = find(nama)
+    index, item = find(nama)
     if nama.isdigit() and 0 < int(nama) <= len(keranjang):
         print(f"[{keranjang[int(nama) - 1]["Nama"]} berhasil dihapus]")
         del keranjang[int(nama) - 1]
     elif item:
         print(f"[{nama} berhasil dihapus]")
-        del keranjang[idx]
+        del keranjang[index]
         # menghapus item dengan nama yang sama di dalam list
     else:
         print(f"[{nama} tidak ditemukan]")
