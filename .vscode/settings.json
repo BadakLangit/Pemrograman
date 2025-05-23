@@ -1,5 +1,4 @@
 {
-  "window.zoomLevel": -1,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.wordWrap": "off",
   "terminal.integrated.enablePersistentSessions": true,
