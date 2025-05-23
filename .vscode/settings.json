@@ -1,8 +1,4 @@
 {
-  "workbench.colorTheme": "Andromeda Colorizer",
-  "workbench.iconTheme": "material-icon-theme",
-  "editor.fontFamily": "Brass Mono Regular",
-  "editor.cursorBlinking": "smooth",
   "editor.fontSize": 18,
   "window.zoomLevel": -1,
   "editor.defaultFormatter": "esbenp.prettier-vscode",

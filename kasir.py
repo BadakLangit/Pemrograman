@@ -1,7 +1,8 @@
-import csv, os
+'''Import module file csv untuk menympan data kasir'''
+import csv
+import os
 
-keranjang = []
-file_name = fr"purchase.csv"
+FILE_NAME = r"purchase.csv"
 
 def header(title, separator):
     '''Membuat header untuk sebuah {prompt} yang dibatasi {separator}'''
@@ -10,6 +11,7 @@ def header(title, separator):
     print(separator)
 
 def tampilkan_menu():
+    '''Menampilkan perintah yang dapat dilakukan'''
     header("MENU PROGRAM KASIR".center(55), "-" * 55)
     print("1. Tambah Barang")
     print("2. Hapus Barang")
@@ -20,7 +22,7 @@ def tampilkan_menu():
 
 def save_data():
     '''Menyimpan data belanja ke purchase.csv'''
-    with open(file_name, mode="w", newline="") as file:
+    with open(FILE_NAME, mode="w", newline="", encoding = "utf-8") as file:
         # membuka file csv dengan mode write
         writer = csv.writer(file)
         writer.writerow(["Nama", "Jumlah", "Harga"])
@@ -31,17 +33,19 @@ def save_data():
 
 def load_data():
     '''Memuat data belanja dari purchase.csv'''
-    global keranjang
-    # mengakses variabel keranjang sebagai variabel global
     try:
-        with open(file_name, mode="r") as file:
+        with open(FILE_NAME, mode="r", encoding = "utf-8") as file:
             # membuka file csv dengan mode read
             reader = csv.DictReader(file)
-            keranjang = [{"Nama": row["Nama"], "Jumlah": int(row["Jumlah"]),
-                          "Harga": int(row["Harga"])} for row in reader]
+            return [
+                {"Nama": row["Nama"], "Jumlah": int(row["Jumlah"]),"Harga": int(row["Harga"])}
+                for row in reader
+            ]
             # membaca data dalam file csv untuk dieksekusi program kasir.py
     except (FileNotFoundError, ValueError):
-        return
+        return []
+
+keranjang = load_data()
 
 def input_str(prompt):
     '''Mengambil input str dari user'''
@@ -51,9 +55,8 @@ def input_str(prompt):
             print("[Input tidak boleh kosong]")
             continue
             # ulang program jika input kosong
-        else:
-            return char.capitalize()
-            # mengembalikan char dengan kapitalisai di huruf pertama
+        return char.capitalize()
+        # mengembalikan char dengan kapitalisai di huruf pertama
 
 def input_int(prompt):
     ''''Mengambil input int dari user'''
@@ -86,7 +89,7 @@ def tambah_barang():
     if index is not None:
         print(f"[{nama} sudah ada di dalam keranjang]")
         return
-        # kembali ke menu awal jika sudah ada item dengan nama yang sama 
+        # kembali ke menu awal jika sudah ada item dengan nama yang sama
     jumlah = input_int("Masukkan jumlah item: ")
     harga = input_int("Masukkan harga item: ")
     keranjang.append({"Nama": nama, "Jumlah": jumlah, "Harga": harga})
@@ -149,14 +152,14 @@ def hitung_total():
             print("[Uang tidak cukup]")
             return
             # kembali ke menu awal jika uang pembayaran tidak cukup
-        else:
-            print(f"[Kembalian: {bayar - total:,}]")
-            print("[Terima kasih sudah berbelanja]")
-            keranjang.clear()
-            # menghapus semua item di dalam list setelah pembayaran berhasil
-            break
+        print(f"[Kembalian: {bayar - total:,}]")
+        print("[Terima kasih sudah berbelanja]")
+        keranjang.clear()
+        # menghapus semua item di dalam list setelah pembayaran berhasil
+        break
 
 def clear_terminal():
+    '''Membersihkan clutter pada terminal'''
     if os.name == "nt":
         os.system("cls")
     else:
